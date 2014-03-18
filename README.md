@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Queue Manager
 =========
 
@@ -27,6 +28,3 @@ Worker (possibly to be used with Supervisord)
 $job = new Queue();
 $job->worker();
 ```
-
-
-    
