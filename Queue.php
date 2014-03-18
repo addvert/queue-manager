@@ -2,9 +2,7 @@
 
 /**
  * Job Queue Library
-
  * @author      Riccardo Mastellone <r.mastellone@addvert.it>
- * 
  * 
  */
 
@@ -40,7 +38,7 @@ class Queue {
 	 */
 	public function create($controller, $method = 'index', $params = null, $description = null) {
 		// Validate if job is correct
-		$this -> validate_job($controller);
+		$this->validateJob($controller);
 
 		// Check if $params is a valid type
 		if ($params !== null && !is_array($params)) {
@@ -48,7 +46,7 @@ class Queue {
 		}
 
 		// Convert job data to hash
-		$job = $this -> job_to_hash($controller, $method, $params, $description);
+		$job = $this->encodeJob($controller, $method, $params, $description);
 
 		// Enqueue the job
 		return $this->connector->push($job);
@@ -67,7 +65,7 @@ class Queue {
 	 * @return	string
 	 */
 
-	private function job_to_hash($controller, $method, $params = null, $description = null) {
+	private function encodeJob($controller, $method, $params = null, $description = null) {
 		return json_encode(array('controller' => $controller, 'method' => $method, 'params' => $params, 'description' => $description,));
 	}
 
@@ -79,7 +77,7 @@ class Queue {
 	 * @return	bool
 	 * @throws	Exception
 	 */
-	private function validate_job($controller) {
+	private function validateJob($controller) {
 		if (empty($controller)) {
 			throw new Exception('Jobs must be given a controller.');
 		} 
